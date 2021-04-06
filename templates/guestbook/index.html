@@ -1,4 +1,5 @@
 {% extends '../base.html' %}
+{% load mathfilters %}
 
 {% block css_link %}
 	<link href="/assets/css/guestbook.css" rel="stylesheet" type="text/css">
@@ -7,40 +8,46 @@
 
 {% block content %}
 	<div id="guestbook">
-		<form action="/guestbook" method="post">
-			<input type="hidden" name="a" value="insert">
+		<form action="/guestbook/add" method="post">
+			{% csrf_token %}
+			<!-- <input type="hidden" name="a" value="insert"> -->
 			<table>
 				<tr>
 					<td>이름</td><td><input type="text" name="name"></td>
-					<td>비밀번호</td><td><input type="password" name="pass"></td>
+					<td>비밀번호</td><td><input type="password" name="password"></td>
 				</tr>
 				<tr>
-					<td colspan=4><textarea name="content" id="content"></textarea></td>
+					<td colspan=4><textarea name="message" id="message" cols=60 rows=5></textarea></td>
 				</tr>
 				<tr>
-					<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
+					<td colspan=4 align=right><input type="submit" VALUE="등록"></td>
 				</tr>
 			</table>
 		</form>
-		<ul>
-			<li>
-				<table>
-					<tr>
-						<td>[4]</td>
-						<td>안대혁</td>
-						<td>2015-11-10 11:22:30</td>
-						<td><a href="">삭제</a></td>
-					</tr>
-					<tr>
-						<td colspan=4>
-						안녕하세요. ^^;<br>
-						하하하하	
-						</td>
-					</tr>
-				</table>
-				<br>
-			</li>
-		</ul>
+
+		
+		{% for guestbook in guestbook_list %}
+			<ul>
+				<li>
+					<table>
+						<tr>
+							<td>{{ guestbook_list | length | sub:forloop.counter0 }}</td>
+							<td>{{ guestbook.name }}</td>
+							<td>{{ guestbook.reg_date }}</td>
+							<td><a href="/guestbook/deleteform?no={{ guestbook.no }}">삭제</a></td>
+						</tr>
+						<tr>
+							<td colspan=4>
+								{{ guestbook.message | linebreaksbr }}	
+							</td>
+						</tr>
+					</table>
+					<br>
+				</li>
+			</ul>
+		{% endfor %}
+			
+		
 	</div>
 {% endblock content %}
 

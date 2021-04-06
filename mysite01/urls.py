@@ -22,4 +22,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', mainviews.index),
     path('guestbook/', guestbookviews.index),
+    path('guestbook/add', guestbookviews.add),
+    path('guestbook/deleteform', guestbookviews.deleteform),
+    path('guestbook/delete', guestbookviews.delete),
 ]
