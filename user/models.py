@@ -67,8 +67,10 @@ def insert(name, email, password, gender):
 
 
 def findbyno(no):
+    # no 갖고서 name, email, gender 뽑아와야함
     # sql = 'select name, email, gender from user where no = %s'
     # count execute(sql, )
+    # return
     pass
 
 def update(name, password):

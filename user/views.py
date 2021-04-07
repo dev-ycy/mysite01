@@ -49,7 +49,7 @@ def logout(request):
 
 
 def updateform(request):
-    # Access Control (접근 제어)
+    # Access Control (접근 제어) - url 직접접근 막음
     authuser = request.session.get("authuser")
     if authuser is None:
         return redirect('/')
