@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'mathfilters',
     'main',
     'guestbook',
+    'user',
+    'board',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,9 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = '/assets/'
+
+
+# session cookies(csrftoken) stored in memory
+# 세션 쿠키를 디스크가 아니라 메모리(브라우저)에 저장하기 위함
+# session 이라는건 csrftoken 이 같은 것끼리 모아둔 것
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
