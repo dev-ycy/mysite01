@@ -36,9 +36,31 @@ def write(request):
     return redirect("/board")
 
 
+def updateform(request):
+    no = request.GET["no"]
+    result = models.findby_no(no)
+    data = {"board": result}
+
+    return render(request, 'board/view.html', data)
+
+
+
+# def updateform(request):
+#     # Access Control (접근 제어) - url 직접접근 막음
+#     authuser = request.session.get("authuser")
+#     if authuser is None:
+#         return redirect('/')
+#     # authuser = request.session['authuser']
+#     result = models.findbyno(authuser['no'])
+#     return render(request, 'user/updateform.html', result)
+
+
+
 def deleteform(request):
-    pass
+    return render(request, 'board/deleteform.html')
 
 def delete(request):
-    pass
+    no = request.POST["no"]
+    models.deleteby_no(no)
 
+    return redirect("/board")

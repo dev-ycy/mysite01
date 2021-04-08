@@ -32,7 +32,7 @@
 					<!-- 작성한 user만 삭제 보이게 하기 -->
 					<td>
 						{% if request.session.authuser.no == board.user_no %}
-							<a href="/board/deleteform" class="del">삭제</a></td>
+							<a href="/board/deleteform?no={{ board.no }}" class="del">삭제</a></td>
 						{% endif %}
 					</td>
 					

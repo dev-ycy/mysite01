@@ -29,7 +29,7 @@ def deleteform(request):
 
 
 def delete(request):
-    no = request.POST['no']
+    no = request.GET['no']
     password = request.POST['password']
 
     models.deleteby_no_and_password(no, password)

@@ -172,3 +172,7 @@ div.pager ul li a:hover {
   text-decoration: none;
   color: #f00;
 }
+
+.btn {
+  cursor: pointer;
+}

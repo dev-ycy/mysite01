@@ -142,28 +142,28 @@ def insert(title, contents, hit, g_no, o_no, depth, user_no):
         print(f'error: {e}')
 
 
-# def deleteby_no_and_password(no, password):
-#     try:
-#         # 연결
-#         db = conn()
+def deleteby_no(no):
+    try:
+        # 연결
+        db = conn()
 
-#         # cursor 생성
-#         cursor = db.cursor()
+        # cursor 생성
+        cursor = db.cursor()
 
-#         # SQL 실행
-#         sql = 'delete from mysite_guestbook where no = %s and password = %s'
-#         count = cursor.execute(sql, (no, password))
+        # SQL 실행
+        sql = 'delete from board where no = %s'
+        count = cursor.execute(sql, (no))
 
-#         # commit
-#         db.commit()
+        # commit
+        db.commit()
 
-#         # 자원 정리
-#         cursor.close()
-#         db.close()
+        # 자원 정리
+        cursor.close()
+        db.close()
 
-#         # 결과 반환
-#         return count == 1
+        # 결과 반환
+        return count == 1
 
-#     except OperationalError as e:
-#         print(f'error: {e}')
+    except OperationalError as e:
+        print(f'error: {e}')
 

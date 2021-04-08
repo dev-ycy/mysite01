@@ -1,0 +1,20 @@
+{% extends '../base.html' %}
+
+{% block css_link %}
+	<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+{% endblock css_link %}
+
+{% block content %}
+	<div id="board" class="delete-form">
+		<form method="post" action="/board/delete">
+		{% csrf_token %}
+			<input type='hidden' name="no" value="{{ request.GET.no }}">
+			<span style='margin-right: 10px;'>삭제하시겠습니까?</span>
+			<input type="submit" value="확인" class="btn">
+		</form>
+		<br />
+		<br />
+		<a href="/board">◀ 돌아가기</a>
+	</div>
+
+{% endblock content %}
