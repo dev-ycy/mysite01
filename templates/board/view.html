@@ -27,7 +27,7 @@
 		<div class="bottom">
 			<!-- 내글일때 -->
 			{% if request.session.authuser.no == board.user_no %}
-				<a href="/board/updateform?no={{ request.GET.no }}">글수정</a> 
+				<a href="/board/updateform?no={{ board.no }}">글수정</a> 
 			{% endif %}
 
 			<!-- 로그인됐을때 -->
