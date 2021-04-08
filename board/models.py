@@ -12,35 +12,6 @@ def conn():
         charset='utf8')
 
 
-# def findall():
-#     try:
-#         # 연결
-#         db = conn()
-
-#         # cursor 생성
-#         cursor = db.cursor(DictCursor)
-
-#         # SQL 실행
-#         sql = '''
-#         select no, name, message, date_format(reg_date, "%Y-%m-%d %p %h:%i:%s") as reg_date
-#         from mysite_guestbook
-#         order by reg_date desc'''
-#         cursor.execute(sql)
-
-#         # 결과 받아오기
-#         results = cursor.fetchall()
-
-#         # 자원 정리
-#         cursor.close()
-#         db.close()
-
-#         # 결과 반환
-#         return results
-
-#     except OperationalError as e:
-#         print(f'error: {e}')
-
-
 def findall():
     try:
         # 연결
@@ -82,11 +53,6 @@ def findall():
         print(f'error: {e}')
 
 
-# def findbyno(no):
-#     # sql = 'select name, email, gender from user where no = %s'
-#     # count execute(sql, )
-#     pass
-#
 def findby_no(no):
     try:
         # 연결
@@ -156,7 +122,7 @@ def deleteby_no(no):
 
         # SQL 실행
         sql = 'delete from board where no = %s'
-        count = cursor.execute(sql, (no))
+        count = cursor.execute(sql, (no,))
 
         # commit
         db.commit()
@@ -171,3 +137,29 @@ def deleteby_no(no):
     except OperationalError as e:
         print(f'error: {e}')
 
+
+def update(title, contents, no):
+    try:
+        # 연결
+        db = conn()
+
+        # cursor 생성
+        cursor = db.cursor()
+
+        # SQL 실행
+        sql = 'update board set title=%s, contents=%s where no=%s'
+        count = cursor.execute(sql, (title, contents, no))  
+
+        # commit
+        # insert / update / delete 후에 꼭 commit 해줘야함!
+        db.commit()
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return count == 1
+
+    except OperationalError as e:
+        print(f'error: {e}')

@@ -11,16 +11,16 @@ def index(request):
 
 def view(request):
     no = request.GET["no"]
-    print(no)
+    # print(no)
     result = models.findby_no(no)
-    print(result)
+    # print(result)
 
     # hit(조회수 +1 해야함) -- 반영이안됨...SQL코드 수정해야함
     # print(result["hit"])
     # result["hit"] = result["hit"] + 1
     # print(result["hit"])
     data = {"board": result}
-    data['board']['user_no'] = str(data['board']['user_no'])
+    # data['board']['user_no'] = str(data['board']['user_no'])
 
     return render(request, 'board/view.html', data)
 
@@ -45,21 +45,19 @@ def updateform(request):
     result = models.findby_no(no)
     data = {"board": result}
 
-    return render(request, 'board/view.html', data)
+    return render(request, 'board/updateform.html', data)
 
 
 def update(request):
-    pass
+    no = request.POST['no']
+    title = request.POST['title']
+    contents = request.POST['contents']
+    
+    print(title, contents, no)
+    models.update(title, contents, no)
 
-# def updateform(request):
-#     # Access Control (접근 제어) - url 직접접근 막음
-#     authuser = request.session.get("authuser")
-#     if authuser is None:
-#         return redirect('/')
-#     # authuser = request.session['authuser']
-#     result = models.findbyno(authuser['no'])
-#     return render(request, 'user/updateform.html', result)
-
+    # 해당 글view 로 redirect 시키기
+    return redirect("/board")
 
 
 def deleteform(request):

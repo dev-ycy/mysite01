@@ -66,13 +66,18 @@ def updateform(request):
 
 def update(request):
     no = request.POST["no"]
-    name = request.POST["name"]
     gender = request.POST["gender"]
+
+    if request.POST["name"]:
+        name = request.POST["name"]
+    else:
+        name = request.session["authuser"]["name"]
 
     if request.POST["password"]:
         password = request.POST["password"]
     else:    
         password = models.findpw_byno(no)["password"] 
+
     print(name, password, gender, no)
     models.update(name, password, gender, no)
 
