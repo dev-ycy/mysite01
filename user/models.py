@@ -68,13 +68,61 @@ def insert(name, email, password, gender):
 
 def findbyno(no):
     # no 갖고서 name, email, gender 뽑아와야함
-    # sql = 'select name, email, gender from user where no = %s'
-    # count execute(sql, )
-    # return
-    pass
+    try:
+        # 연결
+        db = conn()
 
-def update(name, password):
-    pass
+        # cursor 생성
+        cursor = db.cursor(DictCursor)
+
+        # SQL 실행
+        sql = 'select name, email, gender from user where no = %s'
+        cursor.execute(sql, (no))
+
+        # 결과 받아오기
+        result = cursor.fetchone() # 결과가 하나이기 때문에 fetchall 이 아니라 fetchone 으로 써야함
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return result
+
+    except OperationalError as e:
+        print(f'error: {e}')
+
+
+
+def findpw_byno(no):
+    # no 갖고서 password 뽑아와야함
+    try:
+        # 연결
+        db = conn()
+
+        # cursor 생성
+        cursor = db.cursor(DictCursor)
+
+        # SQL 실행
+        sql = 'select password from user where no = %s'
+        cursor.execute(sql, (no))
+
+        # 결과 받아오기
+        result = cursor.fetchone() # 결과가 하나이기 때문에 fetchall 이 아니라 fetchone 으로 써야함
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return result
+
+    except OperationalError as e:
+        print(f'error: {e}')
+
+
+# def update(name, password):
+#     pass
 
 # def deleteby_no_and_password(no, password):
 #     try:
@@ -101,3 +149,29 @@ def update(name, password):
 #     except OperationalError as e:
 #         print(f'error: {e}')
 
+
+def update(name, password, gender, no):
+    try:
+        # 연결
+        db = conn()
+
+        # cursor 생성
+        cursor = db.cursor()
+
+        # SQL 실행
+        sql = 'update user set name=%s, password=%s, gender=%s where no = %s'
+        count = cursor.execute(sql, (name, password, gender, no))  # %s로 바인딩 해주는것
+
+        # commit
+        # insert / update / delete 후에 꼭 commit 해줘야함!
+        db.commit()
+
+        # 자원 정리
+        cursor.close()
+        db.close()
+
+        # 결과 반환
+        return count == 1
+
+    except OperationalError as e:
+        print(f'error: {e}')

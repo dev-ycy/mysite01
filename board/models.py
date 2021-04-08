@@ -52,7 +52,7 @@ def findall():
         # SQL 실행
         sql = '''
         select board.no, board.title, board.contents, board.hit,
-                date_format(board.reg_date, "%Y-%m-%d %h:%i") as reg_date,
+                date_format(board.reg_date, "%Y-%m-%d %H:%i") as reg_date,
                 board.g_no, board.o_no, board.depth, board.user_no, user.name
         from board
         left outer join user
@@ -82,10 +82,10 @@ def findall():
         print(f'error: {e}')
 
 
-def findbyno(no):
-    # sql = 'select name, email, gender from user where no = %s'
-    # count execute(sql, )
-    pass
+# def findbyno(no):
+#     # sql = 'select name, email, gender from user where no = %s'
+#     # count execute(sql, )
+#     pass
 #
 def findby_no(no):
     try:
@@ -98,15 +98,19 @@ def findby_no(no):
         # SQL 실행
         sql = '''
         select no, title, contents, hit,
-                date_format(reg_date, "%%Y-%%m-%%d %%h:%%i") as reg_date,
+                date_format(reg_date, "%%Y-%%m-%%d %%H:%%i") as reg_date,
                 g_no, o_no, depth, user_no
         from board
         where no = %s
         '''
-        cursor.execute(sql, (no))
+        cursor.execute(sql, (no,))
 
         # 결과 받아오기
         result = cursor.fetchone()
+
+        # 자원 정리
+        cursor.close()
+        db.close()
 
         # 결과 반환
         return result

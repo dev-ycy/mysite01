@@ -10,23 +10,26 @@
 	<div id="user">
 		<form id="join-form" name="joinForm" method="post" action="/user/update">
 		{% csrf_token %}
+			<input type="hidden" name="no" value="{{ request.session.authuser.no }}">
 			<label class="block-label" for="name">이름</label>
-			<input id="name" name="name" type="text" value="{{ 작업해야함 - 이름 }}">
-
-			<label class="block-label" >이메일</label>
-			<h4>{{ 작업해야함 - email }}</h4>
+			<input id="name" name="name" type="text" placeholder="{{ user.name }}" >
+			
+			<label class="block-label" >이메일 <span style="font-size: 0.7rem;">(수정할 수 없습니다)</span></label>
+			<input name="email" type="text" placeholder="{{ user.email }}" readonly>
 			
 			<label class="block-label">패스워드</label>
-			<input name="password" type="password" value="">
+			<input name="password" type="password" >
 			
 			<fieldset>
 				<legend>성별</legend>
 				
 				<!-- 정보 가져와서 checked 셋팅해주기 -->
-				{% if  %}
+				{% if user.gender == 'female' %}
 					<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
-				{% else %}					
 					<label>남</label> <input type="radio" name="gender" value="male">
+				{% else %}	
+					<label>여</label> <input type="radio" name="gender" value="female">
+					<label>남</label> <input type="radio" name="gender" value="male" checked="checked">								
 				{% endif %}
 
 			</fieldset>
